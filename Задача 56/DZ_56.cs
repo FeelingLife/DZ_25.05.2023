@@ -36,31 +36,30 @@ void PrintArray(int[,] array)
     }
 }
 
-void RowSmallestSumOfNumbers(int[,] array)
+CreateArray(array);
+PrintArray(array);
+
+int SumLineNumbers(int[,] array, int i)
 {
-    int counter = 1;
-    int result = 0;
-    for (int i = 0; i < array.GetLength(0); i++, counter++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)    // Суммируем значение строк
-        {
-            result = result + array[i, j];
-        }
-        Console.Write($"Сумма чисел в {counter} строке - ({result})");
-        result = 0;
-        Console.WriteLine("");
-    }
-    
+  int sumLine = array[i,0];
+  for (int j = 1; j < array.GetLength(1); j++)
+  {
+    sumLine += array[i,j];
+  }
+  return sumLine;
 }
 
-CreateArray(array);
-Console.WriteLine("");
-Console.WriteLine("Массив: ");
-Console.WriteLine("");
-PrintArray(array);
-Console.WriteLine("");
-Console.WriteLine("Рачет построчно: ");
-RowSmallestSumOfNumbers(array);
-Console.WriteLine("");
-Console.WriteLine($"Минимальная сумма в строке - ");
+int minSumLine = 0;
+int sumLine = SumLineNumbers(array, 0);
+for (int i = 1; i < array.GetLength(0); i++)
+{
+  int tempSumLine = SumLineNumbers(array, i);
+  if (sumLine > tempSumLine)
+  {
+    sumLine = tempSumLine;
+    minSumLine = i;
+  }
+}
 
+Console.WriteLine($"\n{minSumLine+1} - строкa с наименьшей суммой ({sumLine}) элементов ");
+Console.WriteLine("");
